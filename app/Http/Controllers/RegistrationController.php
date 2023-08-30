@@ -26,8 +26,9 @@ class RegistrationController extends Controller
         $request->validate([
             // ... (other validation rules)
 
-            'cnic' => 'required|numeric|unique:student_registrations,cnic',
+            'cnic' => 'required|numeric|unique:student_registrations,cnic|',
             'email' => 'required|email|unique:student_registrations,email',
+            'contact' => 'required|numeric|unique:student_registrations,contact',
         ]);
 
         try {
@@ -85,8 +86,36 @@ public function show2()
     $student = StudentRegistration::find($id);
     return view('admin.print-student', compact('student'));
 }
+public function checkSeatAvailability(Request $request)
+{
+    $roomno = $request->input('roomno');
+    $selectedSeater = $request->input('seater');
+
+    $room = Room::where('room_no', $roomno)->first();
+
+    if (!$room) {
+        return response()->json(['message' => 'Invalid room number.'], 400);
+    }
+
+    $occupiedSeater = $this->getOccupiedSeats($roomno, $selectedSeater);
+
+    $availableSeater = $room->seater - $occupiedSeater;
+
+    if ($availableSeater <= 0) {
+        return response()->json(['message' => 'No seats available.'], 400);
+    }
+
+    return response()->json(['message' => $availableSeater . ' Seat(s) available.'], 200);
+}
+
+public function getOccupiedSeats($roomno, $selectedSeater)
+{
+    $occupiedSeats = StudentRegistration::where('room', $roomno)->count();
+    $occupiedSeater = ceil($occupiedSeats / $selectedSeater); // Calculate occupied seater count
+
+    return $occupiedSeater;
+}
 
 
-    // Other methods for managing registrations (edit, update, destroy) can follow similar structure
 }
 

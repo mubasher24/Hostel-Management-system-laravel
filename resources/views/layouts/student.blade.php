@@ -15,7 +15,7 @@
     <link href="css/lib/themify-icons.css" rel="stylesheet">
     <link href="css/lib/owl.carousel.min.css" rel="stylesheet" />
     <link href="css/lib/owl.theme.default.min.css" rel="stylesheet" />
-  
+
     <link href="css/lib/menubar/sidebar.css" rel="stylesheet">
     <link href="css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="css/lib/helper.css" rel="stylesheet">
@@ -30,42 +30,24 @@
                 <ul>
                     <div class="logo">
 
-                        <a href="index.html">
+                        <a href="/home">
                             <!-- <img src="images/logo.png" alt="" /> --><span>Hostel Management
                                 System</span></a>
                     </div>
 
 
                     <li class="label">Main</li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-home"></i> Dashboard </a>
+                    <li>
+                        <a href="/home">
+                            <i class="ti-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
 
-                    </li>
-                  
-          
-                    <li>
-                        <a href="#">
-                            <i class="ti-email"></i>
-                            <span>Book Room</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="ti-email"></i>
-                            <span>Room Details</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="ti-email"></i>
-                            <span>My Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="ti-email"></i>
-                            <span>Change Password</span>
-                        </a>
-                    </li>
+
+
+
+
 
 
 
@@ -90,63 +72,32 @@
                         </div>
                     </div>
                     <div class="float-right">
-
                         <div class="dropdown dib">
-                            <div class="header-icon" data-toggle="dropdown">
-                                <i class="ti-email"></i>
-                                <div class="drop-down dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-content-heading">
-                                        <span class="text-left">2 New Messages</span>
-                                        <a href="email.html">
-                                            <i class="ti-pencil-alt pull-right"></i>
-                                        </a>
-                                    </div>
-                                    <div class="dropdown-content-body">
-                                        <ul>
-                                            <li class="notification-unread">
-                                                <a href="#">
-                                                    <img class="pull-left m-r-10 avatar-img" src="images/avatar/1.jpg"
-                                                        alt="" />
-                                                    <div class="notification-content">
-                                                        <small class="notification-timestamp pull-right">02:34
-                                                            PM</small>
-                                                        <div class="notification-heading">Michael Qin</div>
-                                                        <div class="notification-text">Hi Teddy, Just wanted to let you
-                                                            ...</div>
-                                                    </div>
-                                                </a>
-                                            </li>
 
-                                            <li class="text-center">
-                                                <a href="#" class="more-link">See All</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dropdown dib">
                             <div class="header-icon" data-toggle="dropdown">
-                                <span class="user-avatar">Welcome, Student
+                                <span class="user-avatar captilize">Welcome, {{ Auth::user()->name }}
                                     <i class="ti-angle-down f-s-10"></i>
                                 </span>
                                 <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
 
                                     <div class="dropdown-content-body">
                                         <ul>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="ti-user"></i>
-                                                    <span>My Account</span>
-                                                </a>
-                                            </li>
 
-                                            
-                                            <li>
-                                                <a href="#">
-                                                    <i class="ti-email"></i>
-                                                    <span>Logout</span>
-                                                </a>
+
+
+
+                                            <li class="nav-item dropdown">
+
+                                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                                       onclick="event.preventDefault();
+                                                                     document.getElementById('logout-form').submit();">
+                                                        {{ __('Logout') }}
+                                                    </a>
+
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                        @csrf
+                                                    </form>
+
                                             </li>
 
                                         </ul>
@@ -154,6 +105,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -162,13 +114,13 @@
         <div class="content-wrap px-4">
             @yield('content')
         </div>
-    
-    
+
+
         <footer id="footer" class="bg-white">
-    
-    
-           
-    
+
+
+
+
             <div class="footer-copyright">
                 <div class="container">
                     <div class="row">
@@ -179,7 +131,7 @@
                 </div>
             </div>
         </footer>
-    
+
 
 
 
@@ -201,11 +153,11 @@
     <script src="js/scripts.js"></script>
     <!-- bootstrap -->
 
-    
+
 
 
     <!-- scripit init-->
-   
+
 </body>
 
 </html>

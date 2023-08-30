@@ -10,10 +10,9 @@ use App\Http\Controllers\RegistrationController;
 
 use App\Http\Controllers\StudentDetailsController;
 
-Route::get('/registration', [RegistrationController::class, 'showRegistrationForm'])->name('registration.form');
-Route::post('/registration', [RegistrationController::class, 'register'])->name('registration.submit');
-Route::get("/manage",[RegistrationController::class,'show2']);
-Route::get("/trash/{id}",[RegistrationController::class,'destroy']);
+
+
+
 
 
 Route::get('/', function () {
@@ -58,9 +57,24 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/student-details', [RegistrationController::class, 'show'])->name('admin/student.details');
     Route::get('/print-student/{id}', [RegistrationController::class, 'printStudent'])->name('print.student');
 
+    Route::get("/manage",[RegistrationController::class,'show2']);
+    Route::get("/trash/{id}",[RegistrationController::class,'destroy']);
+
+
+
+
 });
 
 
+    Route::post('/get-seater', [RoomController::class, 'getSeater'])->name('get.seater');
+    Route::post('/get-fees', [RoomController::class, 'getFees'])->name('get.fees');
+
+
+
+    Route::post('/check-seat-availability', [RegistrationController::class, 'checkSeatAvailability']);
+
+    Route::get('/registration', [RegistrationController::class, 'showRegistrationForm'])->name('registration.form');
+    Route::post('/registration', [RegistrationController::class, 'register'])->name('registration.submit');
 
 
 
@@ -71,12 +85,3 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
 
 
-
-Route::get('/registration', [RegistrationController::class, 'showRegistrationForm'])->name('registration.form');
-Route::post('/registration', [RegistrationController::class, 'register'])->name('registration.submit');
-
-
-
-
-Route::post('/get-seater', [RoomController::class, 'getSeater'])->name('get.seater');
-Route::post('/get-fees', [RoomController::class, 'getFees'])->name('get.fees');

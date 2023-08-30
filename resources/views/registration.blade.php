@@ -1,10 +1,24 @@
-@extends('layouts.admin')
+@extends('layouts.register')
+
+
+
+
+
+
+
+
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="panel panel-primary">
+                    @if(session('success'))
+                         <div class="alert alert-success">
+                          {{ session('success') }}
+                          </div>
+                    @endif
+
                     <div class="panel-heading">Fill all Info</div>
                     <div class="panel-body">
                         <form method="post" action="{{ url('/registration') }}" class="form-horizontal">
@@ -21,14 +35,16 @@
                                         <option value="{{ $room->room_no }}">{{ $room->room_no }}</option>
                                     @endforeach
                                 </select>
-                                <span id="room-availability-status" style="font-size:12px;"></span>
+
                             </div>
 
                             <div class="form-group row px-1 m-1">
                                 <label class="col-sm-2 control-label" for="seater">Seater:</label>
                                 <input type="text" name="seater" id="seater" class="col-sm-8 form-control"
                                     readonly="true">
+
                             </div>
+                            <div class="lead text-center font-bold" id="seat-availability-message"></div>
 
                             <div class="form-group row px-1 m-1">
                                 <label class="col-sm-2 control-label" for="fpm">Fees Per Month:</label>
@@ -77,11 +93,11 @@
                             </div>
                             <div class="form-group row px-1 m-1">
                                 <label class="col-sm-2 control-label" for="contact">Contact No:</label>
-                                <input type="text" name="contact" id="contact" class="col-sm-8 form-control" required>
+                                <input type="tel" name="contact" id="contact" class="col-sm-8 form-control" required>
                             </div>
                             <div class="form-group row px-1 m-1">
                                 <label class="col-sm-2 control-label" for="cnic">CNIC No:</label>
-                                <input type="Number" name="cnic" id="cnic" class="col-sm-8 form-control" required>
+                                <input type="Number" maxlength="13" name="cnic" id="cnic" class="col-sm-8 form-control" required>
                                 @error('cnic')
                                     <span class="text-danger text-center">{{ $message }}</span>
                                 @enderror
@@ -96,7 +112,7 @@
 
                             <div class="form-group row px-1 m-1">
                                 <label class="col-sm-2 control-label" for="econtact">Emergency Contact:</label>
-                                <input type="text" name="econtact" id="econtact" class="col-sm-8 form-control"
+                                <input type="tel" maxlength="12" name="econtact" id="econtact" class="col-sm-8 form-control"
                                     required>
                             </div>
 
@@ -114,7 +130,7 @@
 
                             <div class="form-group row px-1 m-1">
                                 <label class="col-sm-2 control-label" for="gcontact">Guardian Contact no:</label>
-                                <input type="text" name="gcontact" id="gcontact" class="col-sm-8 form-control"
+                                <input type="tel" maxlength="12" name="gcontact" id="gcontact" class="col-sm-8 form-control"
                                     required>
                             </div>
                             <div class="form-group">
@@ -146,7 +162,7 @@
 
                             <div class="form-group row px-1 m-1">
                                 <label class="col-sm-2 control-label" for="pincode">Pincode:</label>
-                                <input type="text" name="pincode" id="pincode" class="col-sm-8 form-control"
+                                <input type="Number" maxlength="6" name="pincode" id="pincode" class="col-sm-8 form-control"
                                     required>
                             </div>
 
@@ -154,8 +170,8 @@
                             <!-- Add other form fields -->
 
                             <div class="col-sm-6 col-sm-offset-4">
-                                <button class="btn btn-default" type="submit">Cancel</button>
-                                <input type="submit" name="submit" value="Register" class="btn btn-primary">
+                                <button class="btn btn-default" type="button">Cancel</button>
+                                <input type="submit" id="submit-button" name="submit" value="Register" class="btn btn-primary">
                             </div>
                         </form>
                     </div>
@@ -163,15 +179,81 @@
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
-        $("#checkRoomAvailabilityButton").click(function() {
-            var roomno = $("#roomno").val();
 
-            $.post("check_room_availability.php", {
-                roomno: roomno
-            }, function(data) {
-                $("#roomAvailabilityResult").html(data);
+    $(document).ready(function() {
+    $('#room, #seater').on('input', function() {
+        var roomno = $('#room').val();
+        var seater = $('#seater').val();
+
+        if (roomno && seater) {
+            $.ajax({
+                url: '/check-seat-availability',
+                type: 'POST',
+                data: { roomno: roomno, seater: seater },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    $('#seat-availability-message').html(response.message).css('color', 'green');
+                    // Enable the submit button
+                    $('#submit-button').prop('disabled', false);
+                },
+                error: function(xhr) {
+                    $('#seat-availability-message').html(xhr.responseJSON.message).css('color', 'red');
+                    // Disable the submit button
+                    $('#submit-button').prop('disabled', true);
+                }
             });
-        });
-    </script>
+        }
+    });
+});
+
+
+
+
+        function getSeater(val) {
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('get.seater') }}",
+                data: {
+                    roomid: val,
+                    _token: csrfToken
+                }, // Include the CSRF token
+                success: function(data) {
+                    $('#seater').val(data);
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('get.fees') }}",
+                data: {
+                    rid: val,
+                    _token: csrfToken
+                },
+                success: function(data) {
+                    $('#fpm').val(data);
+                }
+            });
+        }
+
+            function checkAvailability() {
+                $("#loaderIcon").show();
+                jQuery.ajax({
+                    url: "check_availability.php",
+                    data: 'roomno=' + $("#room").val(),
+                    type: "POST",
+                    success: function(data) {
+                        $("#room-availability-status").html(data);
+                        $("#loaderIcon").hide();
+                    },
+                    error: function() {}
+                });
+            }
+        </script>
 @endsection

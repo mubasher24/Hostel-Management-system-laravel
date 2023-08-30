@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2 class="text-center display-3">All Registered Students Data</h2>
+    <h2 class="text-center py-3 display-4">All Registered Students Data</h2>
 
     <table class="table table-bordered">
         <tr>

@@ -30,53 +30,23 @@
             <div class="nano-content">
                 <ul>
                     <div class="logo">
-
-                        <a href="{{ url('/admin_dashboard') }}">
-                           <span>Hostel Management
-                                System</span></a>
+                        @if(auth()->check())
+                            @if(auth()->user()->type === 'user')
+                                <a href="{{ url('/home') }}">
+                                    <span>Hostel Management System</span>
+                                </a>
+                            @else
+                                <a href="{{ url('/admin_dashboard') }}">
+                                    <span>Hostel Management System</span>
+                                </a>
+                            @endif
+                        @endif
                     </div>
 
 
 
 
-                    <li>
-                        <a href="{{ url('/admin_dashboard') }}">
-                            <i class="ti-home"></i>
-                            <span>Dashboard </span>
-                        </a>
-                    </li>
 
-
-                    <li><a class="sidebar-sub-toggle"><i class="ti-layout-grid3-alt"></i> Rooms <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-
-
-                            <li><a href="{{ url('/add-room') }}">Add New Room</a></li>
-                            <li><a href="{{ url('/manage-rooms') }}">Show All Room</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-book"></i> Courses <span
-                                class="sidebar-collapse-icon ti-angle-down"></span></a>
-                        <ul>
-
-
-                            <li><a href="{{ url('/add-course') }}">Add Courses</a></li>
-                            <li><a href="{{ url('/manage-courses') }}">Manage Courses</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="{{ url('/registration') }}">
-                            <i class="ti-clipboard"></i>
-                            <span>Student Registration</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/manage') }}">
-                            <i class="ti-user"></i>
-                            <span>Manage Students</span>
-                        </a>
-                    </li>
 
 
 
@@ -102,30 +72,19 @@
                     </div>
                     <div class="float-right">
 
-
                         <div class="dropdown dib">
 
                             <div class="header-icon" data-toggle="dropdown">
-                                <span class="user-avatar">Welcome, Admin
+                                <span class="user-avatar text-capitalize">Welcome, {{ Auth::user()->name }}
                                     <i class="ti-angle-down f-s-10"></i>
                                 </span>
                                 <div class="drop-down dropdown-profile dropdown-menu dropdown-menu-right">
 
                                     <div class="dropdown-content-body">
                                         <ul>
-                                            <li>
-                                                <a href="{{ url('/manage') }}">
-                                                    <i class="ti-user"></i>
-                                                    <span>Manage Students</span>
-                                                </a>
-                                            </li>
 
-                                            <li>
-                                                <a href="{{ url('/manage-rooms')}}">
-                                                    <i class="ti-email"></i>
-                                                    <span>Manage Rooms</span>
-                                                </a>
-                                            </li>
+
+
 
                                             <li class="nav-item dropdown">
 
@@ -146,6 +105,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -196,57 +156,8 @@
 
 
 
-    <script>
-        function getSeater(val) {
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-
-            $.ajax({
-                type: "POST",
-                url: "{{ route('get.seater') }}",
-                data: {
-                    roomid: val,
-                    _token: csrfToken
-                }, // Include the CSRF token
-                success: function(data) {
-                    $('#seater').val(data);
-                }
-            });
-
-            $.ajax({
-                type: "POST",
-                url: "{{ route('get.fees') }}",
-                data: {
-                    rid: val,
-                    _token: csrfToken
-                },
-                success: function(data) {
-                    $('#fpm').val(data);
-                }
-            });
-        }
-    </script>
-
-    <script>
-        function checkAvailability() {
-            $("#loaderIcon").show();
-            jQuery.ajax({
-                url: "check_availability.php",
-                data: 'roomno=' + $("#room").val(),
-                type: "POST",
-                success: function(data) {
-                    $("#room-availability-status").html(data);
-                    $("#loaderIcon").hide();
-                },
-                error: function() {}
-            });
-        }
-    </script>
-
-
-
-
     <!-- scripit init-->
+
 
 </body>
 
