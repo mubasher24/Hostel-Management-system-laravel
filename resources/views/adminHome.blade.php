@@ -33,7 +33,7 @@
                                 <div class="panel-body bg-success text-light p-2">
                                     <div class="stat-panel text-center">
                                         <?php
-                                            $roomCount = DB::table('rooms')->count(); // Fetch student count from the database
+                                            $roomCount = DB::table('rooms')->count(); //
                                         ?>
                                         <div class="stat-panel-number h1">{{ $roomCount }}</div>
                                         <div class="stat-panel-title text-uppercase">Total Rooms</div>
@@ -50,7 +50,7 @@
                                 <div class="panel-body bg-info text-light p-2">
                                     <div class="stat-panel text-center">
                                         <?php
-                                            $coursesCount = DB::table('courses')->count(); // Fetch student count from the database
+                                            $coursesCount = DB::table('courses')->count(); //
                                         ?>
                                         <div class="stat-panel-number h1">{{ $coursesCount }}</div>
                                         <div class="stat-panel-title text-uppercase">Total Courses</div>
