@@ -18,8 +18,16 @@
                           {{ session('success') }}
                           </div>
                     @endif
-
-                    <div class="panel-heading">Fill all Info</div>
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                    <div class="panel-heading ">Fill all Info</div>
                     <div class="panel-body">
                         <form method="post" action="{{ url('/registration') }}" class="form-horizontal">
                             @csrf

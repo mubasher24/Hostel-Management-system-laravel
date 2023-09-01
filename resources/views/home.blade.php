@@ -13,7 +13,7 @@
                     @endphp
 
                     @if ($registeredStudent)
-                        <p>You have already booked you slot</p>
+                        <p>You have already booked your slot</p>
                         <p>Your details:</p>
                         <ul>
                             <table class="table table-bordered text-center">

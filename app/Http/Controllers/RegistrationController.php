@@ -24,14 +24,29 @@ class RegistrationController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            // ... (other validation rules)
+            'room' => 'required', // Add validation rules for other fields as needed
+            'seater' => 'required',
+            'fpm' => 'required',
+            'course' => 'required',
+            'fname' => 'required',
 
-            'cnic' => 'required|numeric|unique:student_registrations,cnic|',
-            'email' => 'required|email|unique:student_registrations,email',
+            'lname' => 'required',
+            'gender' => 'required',
             'contact' => 'required|numeric|unique:student_registrations,contact',
+            'cnic' => 'required|numeric|unique:student_registrations,cnic',
+            'email' => 'required|email|unique:student_registrations,email',
+            'econtact' => 'required',
+            'gname' => 'required',
+            'grelation' => 'required',
+            'gcontact' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'pincode' => 'required',
         ]);
 
         try {
+            $data = new StudentRegistration;
             $data = new StudentRegistration;
             $data->room = $request->input('room');
             $data->seater = $request->input('seater');
@@ -56,13 +71,13 @@ class RegistrationController extends Controller
             $data->save();
 
             return redirect()->route('registration.form')->with('success', 'Registration successful.');
-        } catch (\Illuminate\Database\QueryException $e) {
-            if ($e->getCode() == 23000) { // Integrity constraint violation
-                if (strpos($e->getMessage(), 'student_registrations_cnic_unique') !== false) {
-                    return back()->withInput()->withErrors(['cnic' => 'CNIC already exists']);
-                }
+    } catch (\Illuminate\Database\QueryException $e) {
+        if ($e->getCode() == 23000) { // Integrity constraint violation
+            if (strpos($e->getMessage(), 'student_registrations_cnic_unique') !== false) {
+                return back()->withInput()->withErrors(['cnic' => 'CNIC already exists']);
             }
-            // Handle other exceptions here
+        }
+
         }
     }
 

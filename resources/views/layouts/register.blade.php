@@ -12,15 +12,15 @@
 
     <!-- Styles -->
 
-    <link href="css/lib/font-awesome.min.css" rel="stylesheet">
-    <link href="css/lib/themify-icons.css" rel="stylesheet">
-    <link href="css/lib/owl.carousel.min.css" rel="stylesheet" />
-    <link href="css/lib/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="{{url ('css/lib/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{url ('css/lib/themify-icons.css')}}" rel="stylesheet">
+    <link href="{{url ('css/lib/owl.carousel.min.css')}}" rel="stylesheet" />
+    <link href="{{url ('css/lib/owl.theme.default.min.css')}}" rel="stylesheet" />
 
-    <link href="css/lib/menubar/sidebar.css" rel="stylesheet">
-    <link href="css/lib/bootstrap.min.css" rel="stylesheet">
-    <link href="css/lib/helper.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{{url ('css/lib/menubar/sidebar.css')}}" rel="stylesheet">
+    <link href="{{url ('css/lib/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url ('css/lib/helper.css')}}" rel="stylesheet">
+    <link href="{{url ('css/style.css')}}" rel="stylesheet">
 </head>
 
 <body>
