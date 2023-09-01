@@ -46,6 +46,7 @@ class RoomController extends Controller
     public function update(Request $request, $id)
     {
         $room = Room::findOrFail($id);
+        $room->room_no = $request->input('room_no');
         $room->seater = $request->input('seater');
         $room->fees = $request->input('fees');
         $room->save();

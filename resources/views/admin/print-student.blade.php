@@ -25,7 +25,7 @@
                                 <td>{{ $student->room }}</td>
                                 <th>Seater</th>
                                 <td>{{ $student->seater }}</td>
-                                <th>Fees PM</th>
+                                <th>Fees Per Month</th>
                                 <td>{{ $student->fpm }}</td>
                             </tr>
                         </table>

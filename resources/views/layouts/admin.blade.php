@@ -12,15 +12,15 @@
 
     <!-- Styles -->
 
-    <link href="css/lib/font-awesome.min.css" rel="stylesheet">
-    <link href="css/lib/themify-icons.css" rel="stylesheet">
-    <link href="css/lib/owl.carousel.min.css" rel="stylesheet" />
-    <link href="css/lib/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="{{url ('css/lib/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{url ('css/lib/themify-icons.css')}}" rel="stylesheet">
+    <link href="{{url ('css/lib/owl.carousel.min.css')}}" rel="stylesheet" />
+    <link href="{{url ('css/lib/owl.theme.default.min.css')}}" rel="stylesheet" />
 
-    <link href="css/lib/menubar/sidebar.css" rel="stylesheet">
-    <link href="css/lib/bootstrap.min.css" rel="stylesheet">
-    <link href="css/lib/helper.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{{url ('css/lib/menubar/sidebar.css')}}" rel="stylesheet">
+    <link href="{{url ('css/lib/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url ('css/lib/helper.css')}}" rel="stylesheet">
+    <link href="{{url ('css/style.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -182,15 +182,15 @@
 
 
     <!-- jquery vendor -->
-    <script src="js/lib/jquery.min.js"></script>
-    <script src="js/lib/jquery.nanoscroller.min.js"></script>
+    <script src="{{url ('js/lib/jquery.min.js')}}"></script>
+    <script src="{{url ('js/lib/jquery.nanoscroller.min.js')}}"></script>
     <!-- nano scroller -->
-    <script src="js/lib/menubar/sidebar.js"></script>
-    <script src="js/lib/preloader/pace.min.js"></script>
+    <script src="{{url ('js/lib/menubar/sidebar.js')}}"></script>
+    <script src="{{url ('js/lib/preloader/pace.min.js')}}"></script>
     <!-- sidebar -->
 
-    <script src="js/lib/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
+    <script src="{{url ('js/lib/bootstrap.min.js')}}"></script>
+    <script src="{{url ('js/scripts.js')}}"></script>
     <!-- bootstrap -->
 
 

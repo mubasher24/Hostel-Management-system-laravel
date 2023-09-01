@@ -7,6 +7,12 @@
         @csrf
         @method('PUT')
         <div class="form-group">
+            <label class="col-sm-2 control-label">Room No</label>
+            <div class="col-sm-8">
+                <input type="text" name="room_no" value="{{ $room->room_no }}" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-sm-2 control-label">Seater</label>
             <div class="col-sm-8">
                 <input type="text" name="seater" value="{{ $room->seater }}" class="form-control">
