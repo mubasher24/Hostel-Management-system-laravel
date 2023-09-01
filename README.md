@@ -9,7 +9,7 @@ Welcome to the Hostel Management System project! This project is developed using
 - [Features](#features)
 - [Installation](#installation)
 
-- 
+ 
 - [License](#license)
 
 
@@ -37,6 +37,7 @@ List the key features of your hostel management system. This can include:
 5. Migrate the database: `php artisan migrate`
 6. Seed the database (if needed): `php artisan db:seed`
 7. Start the development server: `php artisan serve`
+8. Don't forget to add database and it name env file:
 
 
 
