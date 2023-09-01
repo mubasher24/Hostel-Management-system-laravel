@@ -27,7 +27,7 @@
                         </ul>
                     </div>
                 @endif
-                    <div class="panel-heading ">Fill all Info</div>
+                    <div class="panel-heading py-2 "><span class="lead ">Fill all Info</span></div>
                     <div class="panel-body">
                         <form method="post" action="{{ url('/registration') }}" class="form-horizontal">
                             @csrf
